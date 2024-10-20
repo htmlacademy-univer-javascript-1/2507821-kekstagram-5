@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const checkLength = (string, maxLength) => string.length <= maxLength;
 
 const checkPalindrome = (string) => {
