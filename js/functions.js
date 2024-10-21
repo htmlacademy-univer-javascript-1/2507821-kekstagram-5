@@ -25,3 +25,17 @@ const getInt = (number) => {
 
   return parseInt(numberChars, 10);
 };
+
+
+const isMeetingNotOutOfBounds = (workdayStart, workdayEnd, meetingStart, meetingDuration) => {
+  // Переводим начало дня в минуты
+  let start = workdayStart.split(':').map((value, index) => Number.parseInt(value, 10));
+  start = start[0] * 60 + start[1];
+  // Переводим конец дня в минуты
+  let end = workdayEnd.split(':').map((value) => Number.parseInt(value, 10));
+  end = end[0] * 60 + end[1];
+  // Переводим конец встречи в минуты
+  let meeting = meetingStart.split(':').map((value) => Number.parseInt(value, 10));
+  meeting = meeting[0] * 60 + meeting[1] + meetingDuration;
+  return start <= meeting && meeting <= end;
+};
