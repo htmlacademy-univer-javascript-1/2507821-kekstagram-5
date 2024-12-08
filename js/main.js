@@ -20,3 +20,8 @@ comments.js - модуль для получения(генерации) ком�
 
 miniatures.js - модуль по отрисовке миниатюр
 */
+
+
+const photoes = Array.from({length: 25}, getPhoto());
+
+export default photoes;

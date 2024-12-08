@@ -1,12 +1,12 @@
-import { getPhoto } from './data.js';
+import photoes from './main.js';
 
-const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictureTemplate = document.querySelector('#picture').content;
 const picturesContainer = document.querySelector('.pictures');
-const pictures = Array.from({length: 25}, getPhoto());
 const fragment = document.createDocumentFragment();
 
-pictures.forEach(({url, description, likes, comments}) => {
+photoes.forEach(({id, url, description, likes, comments}) => {
   const newPicture = pictureTemplate.cloneNode(true);
+  newPicture.querySelector('a').id = id;
   const img = newPicture.querySelector('.picture__img');
   img.src = url;
   img.alt = description;
