@@ -83,8 +83,8 @@ const openBigPicturePopup = (miniatureElement, miniature) => {
 };
 
 pictures.addEventListener('click', (evt) => {
-  evt.preventDefault();
   if (evt.target.parentElement.matches('a.picture')) {
+    evt.preventDefault();
     const miniatureElement = evt.target.parentElement;
     const miniatureId = miniatureElement.id;
     const miniature = photoes.filter(({id}) => id === Number.parseInt(miniatureId, 10))[0];
