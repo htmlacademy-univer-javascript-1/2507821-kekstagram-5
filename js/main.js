@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { getPhoto } from './data.js';
 
 // Генерация 25 фотографий
