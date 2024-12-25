@@ -287,6 +287,7 @@ const onScaleDec = () => {
   }
 };
 
+// Загружается фото
 inputPhotoLoader.addEventListener('change', (evt) => {
   picturePreview.src = URL.createObjectURL(evt.target.files[0]);
   overlay.classList.remove('hidden');
