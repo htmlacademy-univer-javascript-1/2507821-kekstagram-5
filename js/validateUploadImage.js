@@ -1,4 +1,4 @@
-import sendImage from './requests.js';
+import {sendImage} from './requests.js';
 import { data } from './openBigPicture.js';
 
 const overlay = document.querySelector('.img-upload__overlay');

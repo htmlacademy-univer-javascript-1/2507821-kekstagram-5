@@ -113,145 +113,6 @@ pictures.addEventListener('click', (evt) => {
   }
 });
 
-///
-const onKeyDown = (evt) => {
-  if (evt.key === 'Escape') {
-    evt.stopPropagation();
-  }
-};
-
-const onChangeScale = () => {
-  let value = /\d+/.exec(scalerValue.value);
-  value = (parseInt(value, 10) < 100) ? parseFloat(`0.${value}`, 10) : 1;
-  picturePreview.style.transform = `scale(${value})`;
-};
-
-const closeOverlay = () => {
-  overlay.classList.add('hidden');
-  body.classList.remove('modal-open');
-  inputPhotoLoader.value = '';
-  hashTags.textContent = '';
-  commentOverlay.textContent = '';
-  commentOverlay.removeEventListener('keydown', onKeyDown);
-  scalerValue.removeEventListener('change', onChangeScale);
-};
-
-const onClickPopupClose = () => {
-  closeOverlay();
-  overlayCloseBtn.removeEventListener('click', onClickPopupClose);
-};
-
-const closeMessage = () => {
-  messageShowen = false;
-  document.querySelector('body > section:last-of-type').remove();
-};
-
-const onKeyDownPopupClose = (evt) => {
-  if (evt.key === 'Escape') {
-    if (!messageShowen) {
-      closeOverlay();
-      body.removeEventListener('keydown', onKeyDownPopupClose);
-    } else {
-      closeMessage();
-    }
-  }
-};
-
-const onScaleInc = () => {
-  if (parseInt(scalerValue.value, 10) + SCALERSTEP <= 100) {
-    const newValue = parseInt(scalerValue.value, 10) + SCALERSTEP;
-    scalerValue.value = `${newValue}%`;
-    scalerValue.dispatchEvent(new Event('change'));
-  }
-};
-
-const onScaleDec = () => {
-  if (parseInt(scalerValue.value, 10) - SCALERSTEP >= 25) {
-    const newValue = parseInt(scalerValue.value, 10) - SCALERSTEP;
-    scalerValue.value = `${newValue}%`;
-    scalerValue.dispatchEvent(new Event('change'));
-  }
-};
-
-inputPhotoLoader.addEventListener('change', () => {
-  overlay.classList.remove('hidden');
-  body.classList.add('modal-open');
-  commentOverlay.addEventListener('keydown', onKeyDown);
-  overlayCloseBtn.addEventListener('click', onClickPopupClose);
-  body.addEventListener('keydown', onKeyDownPopupClose);
-  scalerBigger.addEventListener('click', onScaleInc);
-  scalerSmaller.addEventListener('click', onScaleDec);
-  scalerValue.addEventListener('change', onChangeScale);
-});
-
-const clearImageUploadForm = (closePopup = false) => {
-  scalerValue.value = '100%';
-  sliderValue.value = 'none';
-  picturePreview.style.filter = '';
-  sliderContainer.style.display = 'none';
-  hashTags.value = '';
-  commentOverlay.value = '';
-  inputPhotoLoader.value = null;
-
-  scalerValue.dispatchEvent(new Event('change'));
-  sliderEffects.dispatchEvent(new Event('change'));
-  if (closePopup) {
-    closeOverlay();
-  }
-};
-
-const showSuccessMessage = () => {
-  messageShowen = true;
-  const message = successTemplate.cloneNode(true);
-  const section = message.querySelector('.success');
-  const button = message.querySelector('.success__button');
-  body.appendChild(message);
-
-  const onClickMessageClose = (evt) => {
-    if (evt.target === section) {
-      closeMessage();
-    }
-  };
-
-  const onCloseMessage = () => {
-    closeMessage();
-  };
-
-  button.addEventListener('click', onCloseMessage);
-  section.addEventListener('click', onClickMessageClose);
-};
-
-const showErrorMessage = () => {
-  messageShowen = true;
-  const message = errorTemplate.cloneNode(true);
-  const section = message.querySelector('.error');
-  const button = message.querySelector('.error__button');
-  body.appendChild(message);
-
-  const onClickMessageClose = (evt) => {
-    if (evt.target === section) {
-      closeMessage();
-    }
-  };
-
-  const onCloseMessage = () => {
-    closeMessage();
-  };
-
-  button.addEventListener('click', onCloseMessage);
-  section.addEventListener('click', onClickMessageClose);
-};
-
-const data = {
-  form: form,
-  submitter: submitter,
-  clearWindow: clearImageUploadForm,
-  success: showSuccessMessage,
-  error: showErrorMessage,
-  body: body,
-  popupClose: onKeyDownPopupClose
-};
-
 // Слайдер
 let currentEffect = 'none';
 sliderContainer.style.display = 'none';
@@ -362,5 +223,148 @@ const onChangeEffect = (evt) => {
 };
 
 sliderEffects.addEventListener('change', onChangeEffect);
+
+///
+const onKeyDown = (evt) => {
+  if (evt.key === 'Escape') {
+    evt.stopPropagation();
+  }
+};
+
+const onChangeScale = () => {
+  let value = /\d+/.exec(scalerValue.value);
+  value = (parseInt(value, 10) < 100) ? parseFloat(`0.${value}`, 10) : 1;
+  picturePreview.style.transform = `scale(${value})`;
+};
+
+const closeOverlay = () => {
+  overlay.classList.add('hidden');
+  body.classList.remove('modal-open');
+  inputPhotoLoader.value = '';
+  hashTags.textContent = '';
+  commentOverlay.textContent = '';
+  commentOverlay.removeEventListener('keydown', onKeyDown);
+  scalerValue.removeEventListener('change', onChangeScale);
+  currentEffect = 'none';
+  sliderContainer.style.display = 'none';
+  sliderElement.noUiSlider.updateOptions(sliderOptions[currentEffect].settings);
+};
+
+const onClickPopupClose = () => {
+  closeOverlay();
+  overlayCloseBtn.removeEventListener('click', onClickPopupClose);
+};
+
+const closeMessage = () => {
+  messageShowen = false;
+  document.querySelector('body > section:last-of-type').remove();
+};
+
+const onKeyDownPopupClose = (evt) => {
+  if (evt.key === 'Escape') {
+    if (!messageShowen) {
+      closeOverlay();
+      body.removeEventListener('keydown', onKeyDownPopupClose);
+    } else {
+      closeMessage();
+    }
+  }
+};
+
+const onScaleInc = () => {
+  if (parseInt(scalerValue.value, 10) + SCALERSTEP <= 100) {
+    const newValue = parseInt(scalerValue.value, 10) + SCALERSTEP;
+    scalerValue.value = `${newValue}%`;
+    scalerValue.dispatchEvent(new Event('change'));
+  }
+};
+
+const onScaleDec = () => {
+  if (parseInt(scalerValue.value, 10) - SCALERSTEP >= 25) {
+    const newValue = parseInt(scalerValue.value, 10) - SCALERSTEP;
+    scalerValue.value = `${newValue}%`;
+    scalerValue.dispatchEvent(new Event('change'));
+  }
+};
+
+inputPhotoLoader.addEventListener('change', (evt) => {
+  picturePreview.src = URL.createObjectURL(evt.target.files[0]);
+  overlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  commentOverlay.addEventListener('keydown', onKeyDown);
+  overlayCloseBtn.addEventListener('click', onClickPopupClose);
+  body.addEventListener('keydown', onKeyDownPopupClose);
+  scalerBigger.addEventListener('click', onScaleInc);
+  scalerSmaller.addEventListener('click', onScaleDec);
+  scalerValue.addEventListener('change', onChangeScale);
+});
+
+const clearImageUploadForm = (closePopup = false) => {
+  scalerValue.value = '100%';
+  sliderValue.value = 'none';
+  picturePreview.style.filter = '';
+  sliderContainer.style.display = 'none';
+  hashTags.value = '';
+  commentOverlay.value = '';
+  inputPhotoLoader.value = null;
+
+  scalerValue.dispatchEvent(new Event('change'));
+  sliderEffects.dispatchEvent(new Event('change'));
+  if (closePopup) {
+    closeOverlay();
+  }
+};
+
+const showSuccessMessage = () => {
+  messageShowen = true;
+  const message = successTemplate.cloneNode(true);
+  const section = message.querySelector('.success');
+  const button = message.querySelector('.success__button');
+  body.appendChild(message);
+
+  const onClickMessageClose = (evt) => {
+    if (evt.target === section) {
+      closeMessage();
+    }
+  };
+
+  const onCloseMessage = () => {
+    closeMessage();
+  };
+
+  button.addEventListener('click', onCloseMessage);
+  section.addEventListener('click', onClickMessageClose);
+};
+
+const showErrorMessage = () => {
+  messageShowen = true;
+  const message = errorTemplate.cloneNode(true);
+  const section = message.querySelector('.error');
+  const button = message.querySelector('.error__button');
+  body.appendChild(message);
+
+  const onClickMessageClose = (evt) => {
+    if (evt.target === section) {
+      closeMessage();
+    }
+  };
+
+  const onCloseMessage = () => {
+    closeMessage();
+  };
+
+  button.addEventListener('click', onCloseMessage);
+  section.addEventListener('click', onClickMessageClose);
+};
+
+const data = {
+  form: form,
+  submitter: submitter,
+  clearWindow: clearImageUploadForm,
+  success: showSuccessMessage,
+  error: showErrorMessage,
+  body: body,
+  popupClose: onKeyDownPopupClose
+};
 
 export {data};
