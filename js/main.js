@@ -1,11 +1,5 @@
 import { getPhoto } from './data.js';
 
-// Генерация 25 фотографий
-/*
-const photoes = Array.from({length: 25}, getPhoto());
-console.log(photoes);
-*/
-
 /*
 ОПИСАНИЕ
 Раздление на модули
@@ -21,6 +15,6 @@ miniatures.js - модуль по отрисовке миниатюр
 */
 
 
-const photoes = Array.from({length: 25}, getPhoto());
+const photos = Array.from({length: 25}, getPhoto());
 
-export default photoes;
+export default photos;
