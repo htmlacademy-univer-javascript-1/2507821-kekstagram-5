@@ -12,7 +12,7 @@ const filterList = {
 
 const photos = await downloadImages();
 
-const filterRandomly = (array, picturesNumber = 10, upperBorder = 25) => {
+const filterRandomly = (array, picturesNumber = 10, upperBorder = 24) => {
   const previousIds = [];
   for (let i = 0; i < picturesNumber; i++) {
     let currentValue = getRandomInteger(1, upperBorder);
