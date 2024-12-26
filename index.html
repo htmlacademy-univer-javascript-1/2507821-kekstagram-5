@@ -231,9 +231,21 @@
       <p class="social__text">{{текст комментария}}</p>
   </li>
   </template>
+
+  <!-- Сообщение с ошибкой получения данных с сервера -->
+  <template id="download-error">
+    <section class="error download-error-section">
+      <div class="error__inner download-error">
+        <h2 class="error__title">Ошибка получения данных</h2>
+        <button type="button" class="error__button">Попробовать ещё раз</button>
+      </div>
+    </section>
+  </template>
+
   <script src="vendor/pristine/pristine.min.js"></script>
   <script src="vendor/nouislider/nouislider.js"></script>
   <script src="js/main.js" type="module"></script>
+  <script src="js/uploadImage.js" type="module"></script>
   <script src="js/miniatures.js" type="module"></script>
   <script src="js/openBigPicture.js" type="module"></script>
   <script src="js/validateUploadImage.js" type="module"></script>
